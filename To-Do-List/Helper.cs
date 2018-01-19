@@ -34,5 +34,13 @@ namespace To_Do_List
 			YYYY = Int32.Parse(input);
 			return new DateTime(YYYY, MM, DD);
 		}
+
+		public static string PadBoth(string source, int length)
+		{
+			int spaces = length - source.Length;
+			int padLeft = spaces / 2 + source.Length;
+			return source.PadLeft(padLeft).PadRight(length);
+
+		}
 	}
 }

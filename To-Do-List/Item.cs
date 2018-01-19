@@ -22,10 +22,10 @@ namespace To_Do_List
 
 		public void printItem(int index)
 		{
-			System.Console.WriteLine("|\t" + index.ToString().PadRight(5) + "|" + taskName.PadRight(5) + "|" + date.ToString().PadRight(5) + "|\t" + isComplete.ToString());
+			Console.WriteLine("|" + Helper.PadBoth(index.ToString(), 10) + "|" + Helper.PadBoth(taskName, 20) + "|" + Helper.PadBoth(date.ToShortDateString(), 20) + "|" + Helper.PadBoth(isComplete.ToString(), 10) + "|");
 		}
 
-		public void setComplete(bool complete)
+		public void SetComplete(bool complete)
 		{
 			isComplete = complete;
 		}

@@ -12,13 +12,13 @@ namespace To_Do_List
 		public static String Welcome = "Welcome to the Planner";
 		static void Main(string[] args)
 		{
-			header = header.PadLeft(System.Console.WindowWidth, '~');
+			header = header.PadLeft(Console.WindowWidth, '~');
 			List<Item> itemList = new List<Item>();
 			String input = " ";
 			while(input != "quit")
 			{
 				PrintMenu(itemList);
-				input = System.Console.ReadLine();
+				input = Console.ReadLine();
 				switch (input)
 				{
 					case "quit":
@@ -39,45 +39,57 @@ namespace To_Do_List
 
 		static void PrintMenu(List<Item> itemList)
 		{
-			System.Console.Clear();
-			System.Console.WriteLine(header);
-			System.Console.SetCursorPosition((System.Console.WindowWidth - Welcome.Length) / 2, System.Console.CursorTop);
-			System.Console.WriteLine(Welcome);
-			System.Console.WriteLine();
-			System.Console.WriteLine(new String('_', System.Console.WindowWidth));
+			Console.Clear();
+			Console.WriteLine(header);
+			Console.SetCursorPosition((Console.WindowWidth - Welcome.Length) / 2, Console.CursorTop);
+			Console.WriteLine(Welcome);
+			Console.WriteLine();
+			Console.WriteLine(new String('_', Console.WindowWidth));
 			foreach (Item item in itemList)
 			{
-				System.Console.Write(itemList.IndexOf(item) + "		");
 				item.printItem(itemList.IndexOf(item));
 			}
-			System.Console.WriteLine(new String('_', System.Console.WindowWidth));
-			System.Console.WriteLine(" add - add task\n delete - delete task\n complete - mark completed\n quit - close\n");
-			System.Console.SetCursorPosition(1, System.Console.CursorTop);
+			Console.WriteLine(new String('_', Console.WindowWidth));
+			Console.WriteLine(" add - add task\n delete - delete task\n complete - mark completed\n quit - close\n");
+			Console.SetCursorPosition(1, Console.CursorTop);
 		}
 		
 		static Item AddItem(String input)
 		{
-			System.Console.WriteLine("Please state the name of the Task");
-			String name = System.Console.ReadLine();
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Please state the name of the Task");
+			Console.SetCursorPosition(1, System.Console.CursorTop);
+			String name = Console.ReadLine();
 
-			System.Console.WriteLine("Please write the due date in DD/MM/YYYY formate");
-			DateTime date = Helper.StringToDate(System.Console.ReadLine());
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Please write the due date in DD/MM/YYYY formate");
+			Console.SetCursorPosition(1, Console.CursorTop);
+			DateTime date = Helper.StringToDate(Console.ReadLine());
 
-			System.Console.WriteLine("Please state the description of the task");
-			String description = System.Console.ReadLine();
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Please state the description of the task");
+			Console.SetCursorPosition(1, Console.CursorTop);
+			String description = Console.ReadLine();
 
 			return new Item(name, date, description);
 		}
 
 		static void DeleteItem(List<Item> itemList)
 		{
-			System.Console.WriteLine("Please enter index of item you wish to delete");
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Please enter index of item you wish to delete");
+
+			Console.SetCursorPosition(1, Console.CursorTop);
 			int index = Int32.Parse(System.Console.ReadLine());
-			System.Console.WriteLine("Are you sure you want to Delete:");
-			System.Console.Write(index + "		");
+
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Are you sure you want to Delete:");
+			Console.SetCursorPosition(1, Console.CursorTop);
 			itemList.ElementAt(index).printItem(index);
-			System.Console.WriteLine("	y/n");
-			String input = System.Console.ReadLine();
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("	y/n");
+			Console.SetCursorPosition(1, Console.CursorTop);
+			String input = Console.ReadLine();
 			if(input == "y")
 			{
 				itemList.RemoveAt(index);
@@ -89,9 +101,11 @@ namespace To_Do_List
 		}
 		static void SetComplete(List<Item> itemList)
 		{
-			System.Console.WriteLine("Please enter index of item you wish to set complete");
-			int index = Int32.Parse(System.Console.ReadLine());
-			itemList.ElementAt(index).setComplete(true);
+			Console.SetCursorPosition(1, Console.CursorTop);
+			Console.WriteLine("Please enter index of item you wish to set complete");
+			Console.SetCursorPosition(1, Console.CursorTop);
+			int index = Int32.Parse(Console.ReadLine());
+			itemList.ElementAt(index).SetComplete(true);
 		}
 	}
 }
