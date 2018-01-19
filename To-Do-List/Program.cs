@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,6 +38,40 @@ namespace To_Do_List
 			}
 		}
 
+		public void ReadFile(List<Item> itemList)
+		{
+			try
+			{
+				using (StreamReader reader = new StreamReader("tasks.json"))
+				{
+					List<Item> fromFile = Helper.ReadJsonFromFile<Item>(reader);
+					foreach (Item item in fromFile)
+					{
+						itemList.Add(item);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				throw new Exception(String.Format("An error ocurred while executing the data import: {0}", e.Message), e);
+			}
+		}
+
+		public void WriteFile(List<Item> itemList)
+		{
+			try
+			{
+				using (StreamWriter writer = new File.AppendText("tasks.json"))
+				{
+					Helper.WriteJsonToFile<Item>(writer, itemList);
+				}
+			}
+			catch (Exception e)
+			{
+				throw new Exception(String.Format("An error ocurred while executing the data import: {0}", e.Message), e);
+			}
+		}
+
 		static void PrintMenu(List<Item> itemList)
 		{
 			Console.Clear();
@@ -47,7 +82,7 @@ namespace To_Do_List
 			Console.WriteLine(new String('_', Console.WindowWidth));
 			foreach (Item item in itemList)
 			{
-				item.printItem(itemList.IndexOf(item));
+				item.PrintItem(itemList.IndexOf(item));
 			}
 			Console.WriteLine(new String('_', Console.WindowWidth));
 			Console.WriteLine(" add - add task\n delete - delete task\n complete - mark completed\n quit - close\n");
@@ -85,7 +120,7 @@ namespace To_Do_List
 			Console.SetCursorPosition(1, Console.CursorTop);
 			Console.WriteLine("Are you sure you want to Delete:");
 			Console.SetCursorPosition(1, Console.CursorTop);
-			itemList.ElementAt(index).printItem(index);
+			itemList.ElementAt(index).PrintItem(index);
 			Console.SetCursorPosition(1, Console.CursorTop);
 			Console.WriteLine("	y/n");
 			Console.SetCursorPosition(1, Console.CursorTop);

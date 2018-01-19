@@ -20,7 +20,7 @@ namespace To_Do_List
 			isComplete = false;
 		}
 
-		public void printItem(int index)
+		public void PrintItem(int index)
 		{
 			Console.WriteLine("|" + Helper.PadBoth(index.ToString(), 10) + "|" + Helper.PadBoth(taskName, 20) + "|" + Helper.PadBoth(date.ToShortDateString(), 20) + "|" + Helper.PadBoth(isComplete.ToString(), 10) + "|");
 		}

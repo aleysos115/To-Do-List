@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,6 +43,19 @@ namespace To_Do_List
 			int padLeft = spaces / 2 + source.Length;
 			return source.PadLeft(padLeft).PadRight(length);
 
+		}
+
+		public static List<T> ReadJsonFromFile<T>(StreamReader reader)
+		{
+			String tempStore = reader.ReadToEnd();
+			List<T> items = JsonConvert.DeserializeObject<List<T>>(tempStore);
+			return items;
+		}
+
+		public static void WriteJsonToFile<T>(StreamWriter write, List<T> itemList)
+		{
+			String json = JsonConvert.SerializeObject(itemList.ToArray());
+			write.WriteLine(json);
 		}
 	}
 }
