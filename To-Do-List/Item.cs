@@ -11,7 +11,7 @@ namespace To_Do_List
 		private String taskName;
 		private DateTime date;
 		private String description;
-		bool isComplete;
+		private bool isComplete = false;
 		public Item(String _taskName, DateTime _date, String _description)
 		{
 			taskName = _taskName;
@@ -20,9 +20,14 @@ namespace To_Do_List
 			isComplete = false;
 		}
 
-		public void printItem()
+		public void printItem(int index)
 		{
-			System.Console.WriteLine(taskName.PadLeft(5, ' ') + description.PadLeft(5, ' ') + date.ToLongDateString().PadLeft(5, ' '));
+			System.Console.WriteLine("|\t" + index.ToString().PadRight(5) + "|" + taskName.PadRight(5) + "|" + date.ToString().PadRight(5) + "|\t" + isComplete.ToString());
+		}
+
+		public void setComplete(bool complete)
+		{
+			isComplete = complete;
 		}
 	}
 }

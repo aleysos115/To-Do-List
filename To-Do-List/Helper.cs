@@ -14,7 +14,7 @@ namespace To_Do_List
 			int index = input.IndexOf(stopper);
 			if(index != -1)
 			{
-				result = input.Substring(0, index - 1);
+				result = input.Substring(0, index);
 				input = input.Remove(0, index + 1);
 				return result;
 			}
