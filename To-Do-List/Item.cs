@@ -8,10 +8,10 @@ namespace To_Do_List
 {
 	class Item
 	{
-		private String taskName;
-		private DateTime date;
-		private String description;
-		private bool isComplete = false;
+		public String taskName;
+		public DateTime date;
+		public String description;
+		public bool isComplete = false;
 		public Item(String _taskName, DateTime _date, String _description)
 		{
 			taskName = _taskName;

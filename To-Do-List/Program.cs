@@ -13,8 +13,10 @@ namespace To_Do_List
 		public static String Welcome = "Welcome to the Planner";
 		static void Main(string[] args)
 		{
+			FileStream file = new FileStream("tasks.json", FileMode.OpenOrCreate, FileAccess.ReadWrite);
 			header = header.PadLeft(Console.WindowWidth, '~');
 			List<Item> itemList = new List<Item>();
+			ReadFile(itemList, file);
 			String input = " ";
 			while(input != "quit")
 			{
@@ -23,6 +25,7 @@ namespace To_Do_List
 				switch (input)
 				{
 					case "quit":
+						WriteFile(itemList, file);
 						break;
 					case "add":
 						itemList.Add(AddItem(input));
@@ -36,18 +39,22 @@ namespace To_Do_List
 				}
 					
 			}
+			file.Close();
 		}
 
-		public void ReadFile(List<Item> itemList)
+		public static void ReadFile(List<Item> itemList, FileStream file)
 		{
 			try
 			{
-				using (StreamReader reader = new StreamReader("tasks.json"))
+				using (StreamReader reader = new StreamReader(file))
 				{
 					List<Item> fromFile = Helper.ReadJsonFromFile<Item>(reader);
-					foreach (Item item in fromFile)
+					if (fromFile != null)
 					{
-						itemList.Add(item);
+						foreach (Item item in fromFile)
+						{
+							itemList.Add(item);
+						}
 					}
 				}
 			}
@@ -55,13 +62,17 @@ namespace To_Do_List
 			{
 				throw new Exception(String.Format("An error ocurred while executing the data import: {0}", e.Message), e);
 			}
+			finally
+			{
+				File.Delete("tasks.json");
+			}
 		}
 
-		public void WriteFile(List<Item> itemList)
+		public static void WriteFile(List<Item> itemList, FileStream file)
 		{
 			try
 			{
-				using (StreamWriter writer = new File.AppendText("tasks.json"))
+				using (StreamWriter writer = File.AppendText("tasks.json"))
 				{
 					Helper.WriteJsonToFile<Item>(writer, itemList);
 				}
